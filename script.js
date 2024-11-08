@@ -33,23 +33,39 @@ function loadUserImage(event) {
         reader.readAsDataURL(file);
     }
 }
-
 function drawCanvas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Efface le canevas
-    
+    // Effacer le canevas et remplir avec un fond blanc
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#FFFFFF"; // Fond blanc
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     // Dessiner l'image du gâteau (si elle est chargée)
     if (cakeImage.src) {
-        const cakeHeight = (cakeImage.height / cakeImage.width) * canvas.width;
-        const cakeYOffset = canvas.height - cakeHeight;
-        ctx.drawImage(cakeImage, 0, cakeYOffset, canvas.width, cakeHeight);
+        // Calculer la taille de l'image de gâteau pour conserver le rapport d'aspect
+        let cakeWidth = canvas.width;
+        let cakeHeight = (cakeImage.height / cakeImage.width) * cakeWidth;
+
+        // Ajuster la hauteur et la largeur pour qu'elles s'adaptent au canevas
+        if (cakeHeight > canvas.height) {
+            cakeHeight = canvas.height;
+            cakeWidth = (cakeImage.width / cakeImage.height) * cakeHeight;
+        }
+
+        // Centrer l'image dans le canevas
+        const cakeXOffset = (canvas.width - cakeWidth) / 2;
+        const cakeYOffset = (canvas.height - cakeHeight) / 2;
+        ctx.drawImage(cakeImage, cakeXOffset, cakeYOffset, cakeWidth, cakeHeight);
     }
-    
+
     // Dessiner l'image de l'utilisateur (si elle est chargée)
     if (userImage.src) {
-        const userImgSize = 100;
+        const userImgSize = 100; // Taille de l'image de l'utilisateur
+        const userXOffset = canvas.width / 2 - userImgSize / 2;
+        const userYOffset = canvas.height / 2 - userImgSize / 2;
         ctx.drawImage(userImage, userXOffset, userYOffset, userImgSize, userImgSize);
     }
 }
+
 
 // Fonction pour vérifier si le clic est sur l'image de l'utilisateur
 function isInsideUserImage(x, y) {
