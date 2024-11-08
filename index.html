@@ -8,31 +8,49 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Bouton de connexion admin -->
+    <div id="admin-login">
+        <button onclick="showAdminLogin()">Connexion Admin</button>
+    </div>
 
-    <div id="gallery">
-        <h2>Choisis un gâteau</h2>
-        <div class="cake-selection">
-            <img src="images/gateau_1.png" alt="Gâteau 1" class="cake-img" onclick="selectCake('images/gateau_1.png')">
-
+    <!-- Section de création de gâteau pour l'utilisateur (vue par défaut) -->
+    <div id="user-section">
+        <h2>Bienvenue ! Créez votre gâteau personnalisé</h2>
+        <div id="gallery">
+            <h3>Choisissez un gâteau</h3>
+            <div class="cake-selection">
+                <img src="images/gateau_1.png" alt="Gâteau 1" class="cake-img" onclick="selectCake('images/gateau_1.png')">
+            </div>
         </div>
+
+        <div id="upload-section">
+            <h3>Importez une photo</h3>
+            <input type="file" id="upload" accept="image/*" onchange="loadUserImage(event)">
+        </div>
+
+        <div id="editor">
+            <canvas id="canvas" width="500" height="500"></canvas>
+        </div>
+
+        <button onclick="saveCanvasAsImage()">Enregistrer</button>
+        <button onclick="sendToAdmin()">Envoyer à l'admin</button>
     </div>
 
-    <div id="upload-section">
-        <h2>Importe la photo</h2>
-        <input type="file" id="upload" accept="image/*" onchange="loadUserImage(event)">
+    <!-- Section d'administration (affichée après connexion) -->
+    <div id="admin-section" style="display: none;">
+        <h2>Page d'administration</h2>
+        <div id="admin-gallery"></div> <!-- Galerie pour afficher les créations des utilisateurs -->
     </div>
 
-    <div id="editor">
-        <h2>Édite ta photo</h2>
-        <canvas id="canvas" width="500" height="500"></canvas>
+    <!-- Fenêtre de dialogue de connexion admin -->
+    <div id="admin-dialog" style="display: none;">
+        <h3>Connexion Admin</h3>
+        <label for="admin-password">Mot de passe :</label>
+        <input type="password" id="admin-password">
+        <button onclick="loginAsAdmin()">Se connecter</button>
+        <button onclick="hideAdminLogin()">Annuler</button>
     </div>
 
-    <br>
-
-    <!-- Boutons -->
-    <button onclick="saveCanvasAsImage()">Enregistrer les modifications</button>
-    <button onclick="downloadImage()">Télécharger l'image</button>
-
-    <script src="script.js"></script> <!-- Lien vers le fichier JS séparé -->
+    <script src="script.js"></script>
 </body>
 </html>
