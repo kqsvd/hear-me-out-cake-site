@@ -9,8 +9,27 @@ let userYOffset = 300; // Position initiale
 let isDragging = false; // État de drag
 
 
+function showAdminLogin() {
+    document.getElementById('admin-dialog').style.display = 'block';
+}
 
+// Cache la boîte de dialogue de connexion admin
+function hideAdminLogin() {
+    document.getElementById('admin-dialog').style.display = 'none';
+}
 
+// Connexion admin
+function loginAsAdmin() {
+    const password = document.getElementById('admin-password').value;
+    
+    if (password === "1234") {  // Mot de passe fictif
+        document.getElementById('user-section').style.display = 'none';
+        document.getElementById('admin-section').style.display = 'block';
+        hideAdminLogin();  // Ferme la boîte de dialogue de connexion
+    } else {
+        alert("Mot de passe incorrect.");
+    }
+}
 // Fonction pour sélectionner une image de gâteau
 function selectCake(src) {
     cakeImage.src = src;
@@ -93,12 +112,14 @@ function saveCanvasAsImage() {
     alert("Modifications enregistrées !");
 }
 
-function downloadImage() {
+function sendToAdmin() {
     if (savedImageDataURL) {
-        const link = document.createElement('a');
-        link.download = 'photo-gateau.png';
-        link.href = savedImageDataURL; // Utilise l'image enregistrée
-        link.click();
+        const adminGallery = document.getElementById('admin-gallery');
+        const img = document.createElement('img');
+        img.src = savedImageDataURL;
+        img.classList.add('user-creation');
+        adminGallery.appendChild(img);
+        alert("Image envoyée à l'admin !");
     } else {
         alert("Veuillez d'abord enregistrer les modifications !");
     }
