@@ -1,0 +1,33 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#gallery, #upload-section, #editor {
+    margin: 20px auto;
+}
+
+.cake-selection {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.cake-img {
+    width: 150px;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.cake-img:hover {
+    border-color: #ff9800;
+}
+
+#canvas {
+    border: 2px solid #007bff;
+    margin-top: 10px;
+    border-radius: 10px;
+    background-color: #e9ecef;
+    height: auto;
+}
+

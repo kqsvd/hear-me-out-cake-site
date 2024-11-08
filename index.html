@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <title>Hear me out cake</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div id="gallery">
+        <h2>Choisis un gâteau</h2>
+        <div class="cake-selection">
+            <img src="gateau_1.png" alt="Gâteau 1" class="cake-img" onclick="selectCake('gateau_1.png')">
+
+        </div>
+    </div>
+
+    <div id="upload-section">
+        <h2>Importe la photo</h2>
+        <input type="file" id="upload" accept="image/*" onchange="loadUserImage(event)">
+    </div>
+
+    <div id="editor">
+        <h2>Édite ta photo</h2>
+        <canvas id="canvas" width="500" height="500"></canvas>
+    </div>
+
+    <br>
+
+    <!-- Boutons -->
+    <button onclick="saveCanvasAsImage()">Enregistrer les modifications</button>
+    <button onclick="downloadImage()">Télécharger l'image</button>
+
+    <script src="script.js"></script> <!-- Lien vers le fichier JS séparé -->
+</body>
+</html>
