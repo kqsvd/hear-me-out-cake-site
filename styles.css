@@ -3,7 +3,7 @@ body {
     text-align: center;
 }
 
-#gallery, #upload-section, #editor {
+#login-section, #user-section, #admin-section {
     margin: 20px auto;
 }
 
@@ -28,6 +28,19 @@ body {
     margin-top: 10px;
     border-radius: 10px;
     background-color: #FFFFFF;
-    height: auto;
 }
 
+.user-creation {
+    width: 100px;
+    margin: 5px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+}
+
+#admin-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
