@@ -13,10 +13,7 @@ function showAdminLogin() {
     document.getElementById('admin-dialog').style.display = 'block';
 }
 
-// Cache la boîte de dialogue de connexion admin
-function hideAdminLogin() {
-    document.getElementById('admin-dialog').style.display = 'none';
-}
+
 
 // Connexion admin
 function loginAsAdmin() {
