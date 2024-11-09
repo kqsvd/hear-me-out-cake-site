@@ -50,10 +50,11 @@
         <button onclick="loginAsAdmin()">Se connecter</button>
         <button onclick="hideAdminLogin()">Annuler</button>
     </div>
-    <!-- Fenêtre modale pour afficher les images en grand -->
-    <div id="lightbox" style="display: none;" onclick="closeModal()">
-        <img id="lightbox-img" src="" alt="Image en grand">
-    </div>
+<!-- Lightbox container for displaying images in larger view -->
+<div id="lightbox" style="display: none;" onclick="closeLightbox()">
+    <img id="lightbox-image" src="" alt="Full-size image">
+</div>
+
     <script src="script.js"></script>
 </body>
 </html>
