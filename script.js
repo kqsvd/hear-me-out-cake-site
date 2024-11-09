@@ -53,33 +53,49 @@ function selectCake(src) {
     };
 }
 
-/// Function to load multiple user images
-function loadUserImage(event) {
+// Fonction pour charger plusieurs images de l'utilisateur
+function loadUserImages(event) {
     const files = event.target.files;
-    if (files) {
-        // Loop through all selected files and add them to the canvas
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                let newImage = new Image();
-                newImage.src = e.target.result;
-                newImage.onload = () => {
-                    // Add the image and its initial position
-                    userImages.push({
-                        img: newImage,
-                        x: canvas.width / 2 - newImage.width / 2,  // Default X position (centered)
-                        y: canvas.height / 2 - newImage.height / 2, // Default Y position (centered)
-                        width: newImage.width,
-                        height: newImage.height
-                    });
-                    drawCanvas(); // Redraw canvas with new image
-                };
+    const images = []; // Tableau pour stocker les images sélectionnées
+
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            const img = new Image();
+            img.src = e.target.result;
+            img.onload = () => {
+                images.push(img); // Ajouter chaque image au tableau après le chargement
+                drawCanvasWithImages(images); // Dessiner les images sur le canevas
             };
-            reader.readAsDataURL(file);
-        }
+        };
+        reader.readAsDataURL(file);
     }
 }
+
+// Fonction pour dessiner plusieurs images sur le canevas
+function drawCanvasWithImages(images) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Dessiner l'image du gâteau si elle est sélectionnée
+    if (cakeImage.src) {
+        const cakeHeight = (cakeImage.height / cakeImage.width) * canvas.width;
+        const cakeYOffset = canvas.height - cakeHeight;
+        ctx.drawImage(cakeImage, 0, cakeYOffset, canvas.width, cakeHeight);
+    }
+
+    // Dessiner chaque image de l'utilisateur avec un espacement vertical
+    let offsetY = 0;
+    images.forEach((img) => {
+        const userImgSize = 100;
+        ctx.drawImage(img, canvas.width / 2 - userImgSize / 2, offsetY, userImgSize, userImgSize);
+        offsetY += userImgSize + 10; // Espacer chaque image
+    });
+}
+
 function drawCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Efface le canevas
     ctx.fillStyle = "#FFFFFF"; // Fond blanc
