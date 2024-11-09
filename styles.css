@@ -75,23 +75,26 @@ body {
     margin-top: 20px;
 }
 
+/* Lightbox container */
 #lightbox {
-    position: fixed;
+    position: fixed; /* Keep the lightbox fixed on the screen */
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.8); /* White background with slight transparency */
     display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    z-index: 1000; /* Ensure it is above other content */
+    display: none; /* Initially hidden */
 }
 
-#lightbox img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+/* Lightbox image */
+#lightbox-image {
+    max-width: 90%; /* Limit the width of the image to 90% of the container */
+    max-height: 90%; /* Limit the height of the image to 90% of the container */
+    object-fit: contain; /* Make sure the image maintains its aspect ratio */
 }
+
 
