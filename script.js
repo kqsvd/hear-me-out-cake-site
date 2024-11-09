@@ -7,7 +7,10 @@ let ctx = canvas.getContext('2d');
 let userXOffset = canvas.width / 2 - 50; // Centré horizontalement par défaut
 let userYOffset = 300; // Position initiale
 let isDragging = false; // État de drag
-
+let userImageWidth = 100; // Initial width of the user image
+let userImageHeight = 100; // Initial height of the user image
+let isResizing = false; // To track if resizing is happening
+let resizeHandleSize = 10; // Size of the resize handle
 // Charger la galerie d'admin dès le chargement de la page
 document.addEventListener('DOMContentLoaded', () => {
     // Vérifie si l'admin est connecté en accédant directement (optionnel : gérer la connexion)
