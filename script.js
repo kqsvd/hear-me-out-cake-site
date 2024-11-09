@@ -77,9 +77,61 @@ function drawCanvas() {
         const userImgSize = 100;
         ctx.drawImage(userImage, userXOffset, userYOffset, userImgSize, userImgSize);
     }
+     // Draw resize handle
+    drawResizeHandle();
 }
 
+// Check if mouse is inside the resize handle
+function isInsideResizeHandle(x, y) {
+    const handleX = userXOffset + userImageWidth - resizeHandleSize / 2;
+    const handleY = userYOffset + userImageHeight - resizeHandleSize / 2;
 
+    return x >= handleX && x <= handleX + resizeHandleSize && y >= handleY && y <= handleY + resizeHandleSize;
+}
+
+// Mouse down event to start dragging or resizing
+canvas.addEventListener('mousedown', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    if (isInsideResizeHandle(x, y)) {
+        isResizing = true; // Start resizing
+    } else {
+        // Check if the user clicked inside the image (to drag)
+        if (x >= userXOffset && x <= userXOffset + userImageWidth && y >= userYOffset && y <= userYOffset + userImageHeight) {
+            isDragging = true; // Start dragging
+        }
+    }
+});
+
+// Mouse move event to handle dragging or resizing
+canvas.addEventListener('mousemove', (e) => {
+    if (isDragging) {
+        const rect = canvas.getBoundingClientRect();
+        userXOffset = e.clientX - rect.left - userImageWidth / 2;
+        userYOffset = e.clientY - rect.top - userImageHeight / 2;
+        drawCanvas();
+    }
+
+    if (isResizing) {
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Calculate new image size based on mouse movement
+        userImageWidth = x - userXOffset;
+        userImageHeight = y - userYOffset;
+
+        drawCanvas(); // Redraw the canvas with the new image size
+    }
+});
+
+// Mouse up event to stop dragging or resizing
+canvas.addEventListener('mouseup', () => {
+    isDragging = false;
+    isResizing = false;
+});
 
 // Fonction pour vérifier si le clic est sur l'image de l'utilisateur
 function isInsideUserImage(x, y) {
