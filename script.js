@@ -51,18 +51,31 @@ function selectCake(src) {
     };
 }
 
-// Fonction pour charger l'image de l'utilisateur
+/// Function to load multiple user images
 function loadUserImage(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            userImage.src = e.target.result;
-            userImage.onload = () => {
-                drawCanvas();
+    const files = event.target.files;
+    if (files) {
+        // Loop through all selected files and add them to the canvas
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                let newImage = new Image();
+                newImage.src = e.target.result;
+                newImage.onload = () => {
+                    // Add the image and its initial position
+                    userImages.push({
+                        img: newImage,
+                        x: canvas.width / 2 - newImage.width / 2,  // Default X position (centered)
+                        y: canvas.height / 2 - newImage.height / 2, // Default Y position (centered)
+                        width: newImage.width,
+                        height: newImage.height
+                    });
+                    drawCanvas(); // Redraw canvas with new image
+                };
             };
-        };
-        reader.readAsDataURL(file);
+            reader.readAsDataURL(file);
+        }
     }
 }
 function drawCanvas() {
