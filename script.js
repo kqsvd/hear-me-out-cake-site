@@ -122,11 +122,11 @@ function sendToAdmin() {
     }
 }
 
-// Fonction pour sauvegarder une image dans le Local Storage
 function saveImageToLocalStorage(imageData) {
     const images = JSON.parse(localStorage.getItem('adminImages')) || [];
     images.push(imageData);
     localStorage.setItem('adminImages', JSON.stringify(images));
+    console.log("Images stockées dans le Local Storage:", images);
     loadAdminGallery(); // Rafraîchit la galerie d'admin
 }
 
@@ -136,6 +136,8 @@ function loadAdminGallery() {
     adminGallery.innerHTML = ""; // Efface le contenu actuel
 
     const images = JSON.parse(localStorage.getItem('adminImages')) || [];
+    console.log("Chargement des images depuis le Local Storage:", images);
+
     images.forEach(imageData => {
         const img = document.createElement('img');
         img.src = imageData;
