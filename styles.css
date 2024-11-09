@@ -21,9 +21,9 @@ h2, h3 {
     text-shadow: 0 0 10px #ff4747;
 }
 
-/* Titre principal avec effet de néon */
+/* Titre principal avec effet de néon centré et agrandi */
 #main-title {
-    font-size: 2.5rem;
+    font-size: 3.5rem; /* Taille de police augmentée */
     color: #ff4747;
     font-weight: bold;
     margin: 20px 0;
@@ -32,9 +32,32 @@ h2, h3 {
     text-align: center;
 }
 
+/* Effet de glow sur le titre */
 @keyframes glow {
     from { text-shadow: 0 0 10px #ff4747, 0 0 20px #ff4747, 0 0 30px #ff4747; }
     to { text-shadow: 0 0 20px #ff4747, 0 0 40px #ff4747, 0 0 60px #ff4747; }
+}
+
+/* Style pour le bouton d'importation */
+label[for="upload"] {
+    padding: 15px 25px;
+    background-color: #333333;
+    color: #ffffff;
+    font-size: 1.1rem;
+    border: 2px solid #ff4747;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: inline-block; /* Assure que le label agit comme un bouton */
+    text-align: center;
+    margin: 20px 0;
+}
+
+label[for="upload"]:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #ff4747;
+}
+
 }
 
 #admin-login {
