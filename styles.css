@@ -82,12 +82,13 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(255, 255, 255, 0.8); /* White background with slight transparency */
+    background-color: white; /* Solid white background */
     display: flex;
     justify-content: center; /* Center the content horizontally */
     align-items: center; /* Center the content vertically */
     z-index: 1000; /* Ensure it is above other content */
     display: none; /* Initially hidden */
+    cursor: pointer; /* Indicate the user can click to close */
 }
 
 /* Lightbox image */
@@ -95,6 +96,8 @@ body {
     max-width: 90%; /* Limit the width of the image to 90% of the container */
     max-height: 90%; /* Limit the height of the image to 90% of the container */
     object-fit: contain; /* Make sure the image maintains its aspect ratio */
+    transition: transform 0.3s ease-in-out; /* Smooth transition for zooming */
 }
+
 
 
