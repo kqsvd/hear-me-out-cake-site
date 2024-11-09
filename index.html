@@ -22,6 +22,12 @@
                 <img src="images/gateau_1.png" alt="Gâteau 1" class="cake-img" onclick="selectCake('images/gateau_1.png')">
             </div>
         </div>
+        <!-- Add Zoom In / Zoom Out buttons above the canvas -->
+        <button onclick="zoomIn()">Zoom In</button>
+        <button onclick="zoomOut()">Zoom Out</button>
+
+        <!-- Add input for uploading multiple images -->
+        <input type="file" id="upload" accept="image/*" multiple onchange="loadMultipleUserImages(event)">
 
         <div id="upload-section">
             <h3>Importez une photo</h3>
@@ -50,10 +56,10 @@
         <button onclick="loginAsAdmin()">Se connecter</button>
         <button onclick="hideAdminLogin()">Annuler</button>
     </div>
-<!-- Lightbox container for displaying images in larger view -->
-<div id="lightbox" style="display: none;" onclick="closeLightbox()">
-    <img id="lightbox-image" src="" alt="Full-size image">
-</div>
+    <!-- Lightbox container for displaying images in larger view -->
+    <div id="lightbox" style="display: none;" onclick="closeLightbox()">
+        <img id="lightbox-image" src="" alt="Full-size image">
+    </div>
 
     <script src="script.js"></script>
 </body>
