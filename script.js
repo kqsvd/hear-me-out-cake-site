@@ -148,12 +148,12 @@ function loadAdminGallery() {
     images.forEach(imageData => {
         const img = document.createElement('img');
         img.src = imageData;
-        img.classList.add('user-creation'); // Ajoute un style à l'image
+        img.classList.add('user-creation');
         img.onclick = () => openLightbox(imageData); // Ouvrir la lightbox au clic
-
         adminGallery.appendChild(img);
     });
 }
+
 // Fonction pour ouvrir la lightbox
 function openLightbox(imageSrc) {
     const lightbox = document.getElementById('lightbox');
