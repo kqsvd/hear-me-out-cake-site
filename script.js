@@ -149,6 +149,8 @@ function loadAdminGallery() {
         const img = document.createElement('img');
         img.src = imageData;
         img.classList.add('user-creation'); // Ajoute un style à l'image
+        img.onclick = () => openLightbox(imageData); // Ouvrir la lightbox au clic
+
         adminGallery.appendChild(img);
     });
 }
