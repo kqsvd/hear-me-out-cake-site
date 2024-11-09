@@ -154,13 +154,18 @@ function loadAdminGallery() {
     });
 }
 
-// Fonction pour ouvrir la lightbox
 function openLightbox(imageSrc) {
     const lightbox = document.getElementById('lightbox');
     const lightboxImage = document.getElementById('lightbox-image');
-    lightboxImage.src = imageSrc;
-    lightbox.style.display = 'flex';
+    
+    if (lightboxImage) {
+        lightboxImage.src = imageSrc; // Ensure imageSrc is correctly passed
+        lightbox.style.display = 'flex'; // Show the lightbox
+    } else {
+        console.error('Lightbox image element not found!');
+    }
 }
+
 
 // Fonction pour fermer la lightbox
 function closeLightbox() {
