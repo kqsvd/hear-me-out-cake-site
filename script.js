@@ -7,10 +7,7 @@ let ctx = canvas.getContext('2d');
 let userXOffset = canvas.width / 2 - 50; // Centré horizontalement par défaut
 let userYOffset = 300; // Position initiale
 let isDragging = false; // État de drag
-let userImageWidth = 100; // Initial width of the user image
-let userImageHeight = 100; // Initial height of the user image
-let isResizing = false; // To track if resizing is happening
-let resizeHandleSize = 10; // Size of the resize handle
+
 // Charger la galerie d'admin dès le chargement de la page
 document.addEventListener('DOMContentLoaded', () => {
     // Vérifie si l'admin est connecté en accédant directement (optionnel : gérer la connexion)
@@ -31,7 +28,7 @@ function hideAdminLogin() {
 // Connexion admin
 function loginAsAdmin() {
     const password = document.getElementById('admin-password').value;
-    
+
     if (password === "admin123") {  // Mot de passe fictif
         document.getElementById('user-section').style.display = 'none';
         document.getElementById('admin-section').style.display = 'block';
@@ -74,67 +71,15 @@ function drawCanvas() {
         const cakeYOffset = canvas.height - cakeHeight;
         ctx.drawImage(cakeImage, 0, cakeYOffset, canvas.width, cakeHeight);
     }
-    
+
     // Dessiner l'image de l'utilisateur (si elle est chargée)
     if (userImage.src) {
         const userImgSize = 100;
         ctx.drawImage(userImage, userXOffset, userYOffset, userImgSize, userImgSize);
     }
-     // Draw resize handle
-    drawResizeHandle();
 }
 
-// Check if mouse is inside the resize handle
-function isInsideResizeHandle(x, y) {
-    const handleX = userXOffset + userImageWidth - resizeHandleSize / 2;
-    const handleY = userYOffset + userImageHeight - resizeHandleSize / 2;
 
-    return x >= handleX && x <= handleX + resizeHandleSize && y >= handleY && y <= handleY + resizeHandleSize;
-}
-
-// Mouse down event to start dragging or resizing
-canvas.addEventListener('mousedown', (e) => {
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    if (isInsideResizeHandle(x, y)) {
-        isResizing = true; // Start resizing
-    } else {
-        // Check if the user clicked inside the image (to drag)
-        if (x >= userXOffset && x <= userXOffset + userImageWidth && y >= userYOffset && y <= userYOffset + userImageHeight) {
-            isDragging = true; // Start dragging
-        }
-    }
-});
-
-// Mouse move event to handle dragging or resizing
-canvas.addEventListener('mousemove', (e) => {
-    if (isDragging) {
-        const rect = canvas.getBoundingClientRect();
-        userXOffset = e.clientX - rect.left - userImageWidth / 2;
-        userYOffset = e.clientY - rect.top - userImageHeight / 2;
-        drawCanvas();
-    }
-
-    if (isResizing) {
-        const rect = canvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        // Calculate new image size based on mouse movement
-        userImageWidth = x - userXOffset;
-        userImageHeight = y - userYOffset;
-
-        drawCanvas(); // Redraw the canvas with the new image size
-    }
-});
-
-// Mouse up event to stop dragging or resizing
-canvas.addEventListener('mouseup', () => {
-    isDragging = false;
-    isResizing = false;
-});
 
 // Fonction pour vérifier si le clic est sur l'image de l'utilisateur
 function isInsideUserImage(x, y) {
@@ -209,9 +154,12 @@ function loadAdminGallery() {
     });
 }
 
+// Fonction pour ouvrir la lightbox
 function openLightbox(imageSrc) {
     const lightbox = document.getElementById('lightbox');
     const lightboxImage = document.getElementById('lightbox-image');
+    lightboxImage.src = imageSrc;
+    lightbox.style.display = 'flex';
     
     if (lightboxImage) {
         lightboxImage.src = imageSrc; // Ensure imageSrc is correctly passed
@@ -220,7 +168,6 @@ function openLightbox(imageSrc) {
         console.error('Lightbox image element not found!');
     }
 }
-
 
 // Fonction pour fermer la lightbox
 function closeLightbox() {
