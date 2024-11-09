@@ -115,13 +115,31 @@ function saveCanvasAsImage() {
 
 function sendToAdmin() {
     if (savedImageDataURL) {
-        const adminGallery = document.getElementById('admin-gallery');
-        const img = document.createElement('img');
-        img.src = savedImageDataURL;
-        img.classList.add('user-creation');
-        adminGallery.appendChild(img);
+        saveImageToLocalStorage(savedImageDataURL);
         alert("Image envoyée à l'admin !");
     } else {
         alert("Veuillez d'abord enregistrer les modifications !");
     }
+}
+
+// Fonction pour sauvegarder une image dans le Local Storage
+function saveImageToLocalStorage(imageData) {
+    const images = JSON.parse(localStorage.getItem('adminImages')) || [];
+    images.push(imageData);
+    localStorage.setItem('adminImages', JSON.stringify(images));
+    loadAdminGallery(); // Rafraîchit la galerie d'admin
+}
+
+// Fonction pour charger les images de la galerie d'admin depuis le Local Storage
+function loadAdminGallery() {
+    const adminGallery = document.getElementById('admin-gallery');
+    adminGallery.innerHTML = ""; // Efface le contenu actuel
+
+    const images = JSON.parse(localStorage.getItem('adminImages')) || [];
+    images.forEach(imageData => {
+        const img = document.createElement('img');
+        img.src = imageData;
+        img.classList.add('user-creation'); // Ajoute un style à l'image
+        adminGallery.appendChild(img);
+    });
 }
