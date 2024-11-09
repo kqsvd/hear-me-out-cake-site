@@ -2,6 +2,7 @@ let cakeImage = new Image();
 let canvas = document.getElementById('canvas');
 let ctx = canvas.getContext('2d');
 let savedImageDataURL = "";
+let userImages = []; // Déclaration globale pour stocker les images de l'utilisateur avec leurs positions
 let draggedImageIndex = null; // Indice de l'image actuellement déplacée
 let isDragging = false;
 
