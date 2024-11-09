@@ -32,6 +32,8 @@ function loginAsAdmin() {
     if (password === "admin123") {  // Mot de passe fictif
         document.getElementById('user-section').style.display = 'none';
         document.getElementById('admin-section').style.display = 'block';
+        document.getElementById('admin-login').style.display = 'none'; // Masquer le bouton de connexion admin
+
         hideAdminLogin();
         loadAdminGallery();  // Charger les images de la galerie d'admin dès la connexion
     } else {
