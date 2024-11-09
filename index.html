@@ -15,9 +15,9 @@
 
     <!-- Section de création de gâteau pour l'utilisateur (vue par défaut) -->
     <div id="user-section">
-        <h2>Bienvenue ! Créez votre gâteau personnalisé</h2>
+        <h2>Hear me out cake</h2>
         <div id="gallery">
-            <h3>Choisissez un gâteau</h3>
+            <h3>Choisis un model gâteau</h3>
             <div class="cake-selection">
                 <img src="images/gateau_1.png" alt="Gâteau 1" class="cake-img" onclick="selectCake('images/gateau_1.png')">
             </div>
@@ -33,7 +33,7 @@
         </div>
 
         <button onclick="saveCanvasAsImage()">Enregistrer</button>
-        <button onclick="sendToAdmin()">Envoyer à l'admin</button>
+        <button onclick="sendToAdmin()">Envoyer</button>
     </div>
 
     <!-- Section d'administration (affichée après connexion) -->
@@ -50,7 +50,10 @@
         <button onclick="loginAsAdmin()">Se connecter</button>
         <button onclick="hideAdminLogin()">Annuler</button>
     </div>
-
+    <!-- Fenêtre modale pour afficher les images en grand -->
+    <div id="modal" style="display: none;" onclick="closeModal()">
+        <img id="modal-img" src="" alt="Image en grand">
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
