@@ -1,11 +1,3 @@
-/* Configuration de base */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-}
-
 body {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -80,87 +72,24 @@ body {
     gap: 10px;
     margin-top: 20px;
 }
-
-body {
-    background-color: #1e1e1e; /* Fond sombre */
-    color: #ffffff;
+/* Section d'importation */
+#upload-section {
+    margin: 15px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-height: 100vh;
+    gap: 10px;
 }
 
-h2, h3 {
-    color: #ff4747; /* Rouge vif pour les titres */
-    text-shadow: 0 0 10px #ff4747;
-}
-
-/* Titre principal avec effet de néon centré et agrandi */
-#main-title {
-    font-size: 3.5rem; /* Taille de police augmentée */
-    color: #ff4747;
-    font-weight: bold;
+#canvas {
     margin: 20px 0;
-    position: relative;
-    animation: glow 1.5s infinite alternate;
-    text-align: center;
-}
-
-/* Effet de glow sur le titre */
-@keyframes glow {
-    from { text-shadow: 0 0 10px #ff4747, 0 0 20px #ff4747, 0 0 30px #ff4747; }
-    to { text-shadow: 0 0 20px #ff4747, 0 0 40px #ff4747, 0 0 60px #ff4747; }
-}
-
-/* Style pour le bouton d'importation */
-label[for="upload"] {
-    padding: 15px 25px;
-    background-color: #333333;
-    color: #ffffff;
-    font-size: 1.1rem;
-    border: 2px solid #ff4747;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: inline-block; /* Assure que le label agit comme un bouton */
-    text-align: center;
-    margin: 20px 0;
-}
-
-label[for="upload"]:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 10px #ff4747;
-}
-
-}
-
-
-
-button {
-    background-color: #ff4747;
-    color: #ffffff;
-    border: none;
-    padding: 12px 20px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-button:hover {
-    transform: scale(1.1);
+    width: 500px;
+    height: 500px;
+    border: 3px solid #ff4747;
+    border-radius: 12px;
+    background-color: #2e2e2e;
     box-shadow: 0 0 10px #ff4747, 0 0 20px #ff4747;
 }
-
-/* Galerie de sélection */
-#gallery {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px 0;
-}
-
 .cake-selection {
     display: flex;
     gap: 20px;
@@ -177,91 +106,24 @@ button:hover {
     transform: scale(1.1);
     box-shadow: 0 0 15px #ff4747;
 }
-
-/* Canevas avec cadre lumineux */
-#canvas {
-    margin: 20px 0;
-    width: 500px;
-    height: 500px;
-    border: 3px solid #ff4747;
-    border-radius: 12px;
-    background-color: #2e2e2e;
-    box-shadow: 0 0 10px #ff4747, 0 0 20px #ff4747;
+#admin-login {
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
 
-/* Section d'importation */
-#upload-section {
-    margin: 15px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-
-input[type="file"] {
-    display: none;
-}
-
-label[for="upload"] {
-    padding: 10px 15px;
-    background-color: #333333;
+button {
+    background-color: #ff4747;
     color: #ffffff;
-    border: 2px solid #ff4747;
-    border-radius: 8px;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-label[for="upload"]:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 10px #ff4747;
-}
-
-/* Galerie d'administration */
-#admin-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.user-creation {
-    width: 100px;
-    height: auto;
-    border: 2px solid #ff4747;
     border-radius: 8px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
 }
 
-.user-creation:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 10px #ff4747;
-}
-
-/* Lightbox */
-#lightbox {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
-
-#lightbox img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
-    transition: transform 0.3s ease;
-}
-
-#lightbox img:hover {
-    transform: scale(1.05);
+button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px #ff4747, 0 0 20px #ff4747;
 }
