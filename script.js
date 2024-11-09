@@ -111,8 +111,6 @@ function drawCanvas() {
         const userImgSize = 100;
         ctx.drawImage(userImage, userXOffset, userYOffset, userImgSize, userImgSize);
     }
-     // Draw resize handle
-    drawResizeHandle();
 }
 // Check if mouse is inside the resize handle
 function isInsideResizeHandle(x, y) {
