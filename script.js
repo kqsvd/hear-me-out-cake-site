@@ -1,16 +1,9 @@
 let cakeImage = new Image();
-let userImage = new Image();
 let canvas = document.getElementById('canvas');
 let ctx = canvas.getContext('2d');
-
-// Position initiale de l'image de l'utilisateur
-let userXOffset = canvas.width / 2 - 50; // Centré horizontalement par défaut
-let userYOffset = 300; // Position initiale
-let isDragging = false; // État de drag
-let userImageWidth = 100; // Initial width of the user image
-let userImageHeight = 100; // Initial height of the user image
-let isResizing = false; // To track if resizing is happening
-let resizeHandleSize = 10; // Size of the resize handle
+let savedImageDataURL = "";
+let draggedImageIndex = null; // Indice de l'image actuellement déplacée
+let isDragging = false;
 
 
 // Charger la galerie d'admin dès le chargement de la page
