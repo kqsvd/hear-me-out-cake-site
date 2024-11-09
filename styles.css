@@ -1,3 +1,37 @@
+/* Configuration de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #1e1e1e; /* Fond sombre */
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+h2, h3 {
+    color: #ff4747; /* Rouge vif pour les titres */
+    text-shadow: 0 0 10px #ff4747;
+}
+
+/* Titre principal avec effet de néon */
+#main-title {
+    font-size: 2.5rem;
+    color: #ff4747;
+    font-weight: bold;
+    margin: 20px 0;
+    position: relative;
+    animation: glow 1.5s infinite alternate;
+    text-align: center;
+}
+
 body {
     font-family: Arial, sans-serif;
     text-align: center;
