@@ -8,7 +8,13 @@ let userXOffset = canvas.width / 2 - 50; // Centré horizontalement par défaut
 let userYOffset = 300; // Position initiale
 let isDragging = false; // État de drag
 
-
+// Charger la galerie d'admin dès le chargement de la page
+document.addEventListener('DOMContentLoaded', () => {
+    // Vérifie si l'admin est connecté en accédant directement (optionnel : gérer la connexion)
+    if (document.getElementById('admin-section').style.display === 'block') {
+        loadAdminGallery();
+    }
+});
 function showAdminLogin() {
     document.getElementById('admin-dialog').style.display = 'block';
 }
@@ -23,10 +29,11 @@ function hideAdminLogin() {
 function loginAsAdmin() {
     const password = document.getElementById('admin-password').value;
     
-    if (password === "1234") {  // Mot de passe fictif
+    if (password === "admin123") {  // Mot de passe fictif
         document.getElementById('user-section').style.display = 'none';
         document.getElementById('admin-section').style.display = 'block';
-        hideAdminLogin();  // Ferme la boîte de dialogue de connexion
+        hideAdminLogin();
+        loadAdminGallery();  // Charger les images de la galerie d'admin dès la connexion
     } else {
         alert("Mot de passe incorrect.");
     }
@@ -122,11 +129,11 @@ function sendToAdmin() {
     }
 }
 
+// Fonction pour sauvegarder une image dans le Local Storage
 function saveImageToLocalStorage(imageData) {
     const images = JSON.parse(localStorage.getItem('adminImages')) || [];
     images.push(imageData);
     localStorage.setItem('adminImages', JSON.stringify(images));
-    console.log("Images stockées dans le Local Storage:", images);
     loadAdminGallery(); // Rafraîchit la galerie d'admin
 }
 
@@ -136,8 +143,6 @@ function loadAdminGallery() {
     adminGallery.innerHTML = ""; // Efface le contenu actuel
 
     const images = JSON.parse(localStorage.getItem('adminImages')) || [];
-    console.log("Chargement des images depuis le Local Storage:", images);
-
     images.forEach(imageData => {
         const img = document.createElement('img');
         img.src = imageData;
