@@ -49,7 +49,6 @@ function selectCake(src) {
 // Fonction pour charger plusieurs images de l'utilisateur
 function loadUserImages(event) {
     const files = event.target.files;
-    const images = []; // Tableau pour stocker les images sélectionnées
 
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
@@ -59,16 +58,17 @@ function loadUserImages(event) {
             const img = new Image();
             img.src = e.target.result;
             img.onload = () => {
-                images.push(img); // Ajouter chaque image au tableau après le chargement
-                drawCanvasWithImages(images); // Dessiner les images sur le canevas
+                // Ajouter chaque image avec une position initiale dans le tableau userImages
+                userImages.push({ img: img, x: canvas.width / 2 - 50, y: userImages.length * 110 });
+                drawCanvasWithImages(); // Redessiner le canevas avec les nouvelles images
             };
         };
         reader.readAsDataURL(file);
     }
 }
 
-// Fonction pour dessiner plusieurs images sur le canevas
-function drawCanvasWithImages(images) {
+// Fonction pour dessiner les images sur le canevas
+function drawCanvasWithImages() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "#FFFFFF";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -80,13 +80,27 @@ function drawCanvasWithImages(images) {
         ctx.drawImage(cakeImage, 0, cakeYOffset, canvas.width, cakeHeight);
     }
 
-    // Dessiner chaque image de l'utilisateur avec un espacement vertical
-    let offsetY = 0;
-    images.forEach((img) => {
+    // Dessiner chaque image de l'utilisateur avec sa position spécifique
+    userImages.forEach((userImage) => {
         const userImgSize = 100;
-        ctx.drawImage(img, canvas.width / 2 - userImgSize / 2, offsetY, userImgSize, userImgSize);
-        offsetY += userImgSize + 10; // Espacer chaque image
+        ctx.drawImage(userImage.img, userImage.x, userImage.y, userImgSize, userImgSize);
     });
+}
+
+// Fonction pour vérifier si le clic est sur une image
+function getClickedImageIndex(x, y) {
+    for (let i = userImages.length - 1; i >= 0; i--) { // Vérifie de haut en bas
+        const userImage = userImages[i];
+        if (
+            x >= userImage.x &&
+            x <= userImage.x + 100 &&
+            y >= userImage.y &&
+            y <= userImage.y + 100
+        ) {
+            return i; // Renvoie l'indice de l'image cliquée
+        }
+    }
+    return null;
 }
 
 function drawCanvas() {
@@ -105,86 +119,52 @@ function drawCanvas() {
         ctx.drawImage(userImage, userXOffset, userYOffset, userImgSize, userImgSize);
     }
 }
-// Check if mouse is inside the resize handle
-function isInsideResizeHandle(x, y) {
-    const handleX = userXOffset + userImageWidth - resizeHandleSize / 2;
-    const handleY = userYOffset + userImageHeight - resizeHandleSize / 2;
-    return x >= handleX && x <= handleX + resizeHandleSize && y >= handleY && y <= handleY + resizeHandleSize;
-}
 
-// Mouse down event to start dragging or resizing
-canvas.addEventListener('mousedown', (e) => {
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    if (isInsideResizeHandle(x, y)) {
-        isResizing = true; // Start resizing
-    } else {
-        // Check if the user clicked inside the image (to drag)
-        if (x >= userXOffset && x <= userXOffset + userImageWidth && y >= userYOffset && y <= userYOffset + userImageHeight) {
-            isDragging = true; // Start dragging
+// Fonction pour vérifier si le clic est sur une image
+function getClickedImageIndex(x, y) {
+    for (let i = userImages.length - 1; i >= 0; i--) { // Vérifie de haut en bas
+        const userImage = userImages[i];
+        if (
+            x >= userImage.x &&
+            x <= userImage.x + 100 &&
+            y >= userImage.y &&
+            y <= userImage.y + 100
+        ) {
+            return i; // Renvoie l'indice de l'image cliquée
         }
     }
-});
-// Mouse move event to handle dragging or resizing
-canvas.addEventListener('mousemove', (e) => {
-    if (isDragging) {
-        const rect = canvas.getBoundingClientRect();
-        userXOffset = e.clientX - rect.left - userImageWidth / 2;
-        userYOffset = e.clientY - rect.top - userImageHeight / 2;
-        drawCanvas();
-    }
-    if (isResizing) {
-        const rect = canvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        // Calculate new image size based on mouse movement
-        userImageWidth = x - userXOffset;
-        userImageHeight = y - userYOffset;
-        drawCanvas(); // Redraw the canvas with the new image size
-    }
-});
-
-// Mouse up event to stop dragging or resizing
-canvas.addEventListener('mouseup', () => {
-    isDragging = false;
-    isResizing = false;
-});
-
-// Fonction pour vérifier si le clic est sur l'image de l'utilisateur
-function isInsideUserImage(x, y) {
-    const userImgSize = 100;
-    return (
-        x >= userXOffset &&
-        x <= userXOffset + userImgSize &&
-        y >= userYOffset &&
-        y <= userYOffset + userImgSize
-    );
+    return null;
 }
 
-// Événements de souris pour gérer le drag-and-drop
+// Événements pour gérer le déplacement des images
 canvas.addEventListener('mousedown', (e) => {
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    // Vérifie si le clic est sur l'image de l'utilisateur
-    if (isInsideUserImage(x, y)) {
+    const clickedIndex = getClickedImageIndex(x, y);
+    if (clickedIndex !== null) {
+        draggedImageIndex = clickedIndex;
         isDragging = true;
     }
 });
 
 canvas.addEventListener('mousemove', (e) => {
-    if (isDragging) {
+    if (isDragging && draggedImageIndex !== null) {
         const rect = canvas.getBoundingClientRect();
-        userXOffset = e.clientX - rect.left - 50; // Ajuste pour centrer
-        userYOffset = e.clientY - rect.top - 50;
-        drawCanvas();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Mettre à jour la position de l'image en cours de déplacement
+        userImages[draggedImageIndex].x = x - 50; // Centrer l'image sous la souris
+        userImages[draggedImageIndex].y = y - 50;
+        drawCanvasWithImages(); // Redessiner le canevas
     }
 });
 
 canvas.addEventListener('mouseup', () => {
     isDragging = false;
+    draggedImageIndex = null;
 });
 
 function saveCanvasAsImage() {
