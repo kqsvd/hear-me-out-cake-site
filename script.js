@@ -154,3 +154,15 @@ function loadAdminGallery() {
         adminGallery.appendChild(img);
     });
 }
+// Fonction pour ouvrir la lightbox
+function openLightbox(imageSrc) {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightbox-image');
+    lightboxImage.src = imageSrc;
+    lightbox.style.display = 'flex';
+}
+
+// Fonction pour fermer la lightbox
+function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+}
